@@ -27,6 +27,8 @@ public class BountyService {
     bounty.setValue(new Belly(request.getValue()));
     bounty.setReasonDescription(request.getReasonDescription());
 
+    validateBounty(bounty);
+
     return bountyRepository.save(bounty);
   }
 
@@ -40,6 +42,8 @@ public class BountyService {
     bounty.setValue(new Belly(request.getValue()));
     bounty.setReasonDescription(request.getReasonDescription());
 
+    validateBounty(bounty);
+
     bountyRepository.save(bounty);
   }
 
@@ -51,6 +55,21 @@ public class BountyService {
     return bountyRepository
         .findById(id)
         .orElseThrow(() -> new NotFoundException("Bounty not found"));
+  }
+
+  private void validateBounty(Bounty bounty) {
+    var zeroBelly = new Belly(0);
+
+    if (bounty.getValue().compareTo(zeroBelly) != 1) {
+      throw new IllegalArgumentException("Bounty value has to be greater than 0");
+    }
+
+    if (bounty.getReasonDescription() != null &&
+        bounty.getReasonDescription().length() > 0 &&
+        bounty.getReasonDescription().length() < 10) {
+
+      throw new IllegalArgumentException("If bounty reason was informed then it must have at least 10 characters long");
+    }
   }
 
 }
