@@ -15,8 +15,8 @@ import br.edu.ifrs.riogrande.tads.onepieceworld.app.services.dto.*;
 @RequiredArgsConstructor
 public class PirateService {
 
-  private final CrewRepository crewRepository;
   private final PirateRepository pirateRepository;
+  private final CrewRepository crewRepository;
   private final CrewPositionRepository crewPositionRepository;
 
   public Pirate create(@Valid PirateRequest request) {
@@ -80,7 +80,7 @@ public class PirateService {
 
       pirate.setIsCurrently(possiblyNewSituation);
     } catch (IllegalArgumentException e) {
-      throw new ServiceException(e);
+      throw new ServiceException(e.getMessage());
     }
 
     return pirateRepository.save(pirate);
