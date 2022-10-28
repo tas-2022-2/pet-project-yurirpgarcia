@@ -1,0 +1,467 @@
+{
+	"info": {
+		"_postman_id": "917cc8b0-be3e-4d29-b0d1-25589e32fc40",
+		"name": "Crew Positions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21672673"
+	},
+	"item": [
+		{
+			"name": "201 CREATE CREW POSITION",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Creates crew position and status code is 201', () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Quartermaster\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 CREATE CREW POSITTION (NAME REQUIRED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Crew position name is required', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew position name is required')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 LIST CREW POSITIONS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Returns a list of crew positions with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('array')",
+							"    pm.expect(data.length).to.be.greaterThan(0)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 UPDATE CREW POSITION",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Updates crew position and status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Musician 1.1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/3678807d-6b33-44c3-bd6c-1178d944b685",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"3678807d-6b33-44c3-bd6c-1178d944b685"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 UPDATE CREW POSITION (NAME REQUIRED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Crew position name is required', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew position name is required')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/3678807d-6b33-44c3-bd6c-1178d944b685",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"3678807d-6b33-44c3-bd6c-1178d944b685"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 UPDATE CREW POSITION",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew position was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew position not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Musician 1.1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/3678807d-6b33-44c3-bd6c-1178d944b6",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"3678807d-6b33-44c3-bd6c-1178d944b6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 READ CREW POSITION",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Returns a crew position position', () => {",
+							"    const crewPosition = pm.response.json()",
+							"",
+							"    pm.expect(crewPosition).to.be.an('object')",
+							"    pm.expect(crewPosition).to.have.property('id')",
+							"    pm.expect(crewPosition).to.have.property('name')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/3678807d-6b33-44c3-bd6c-1178d944b685",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"3678807d-6b33-44c3-bd6c-1178d944b685"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 READ CREW POSITION Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew position was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew position not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/3678807d-6b33-44c3-bd6c-1178d944b6",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"3678807d-6b33-44c3-bd6c-1178d944b6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 DELETE CREW POSITION",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Deletes crew position and status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/835a4dfa-fbbb-41ac-b9cd-d80c6e8e8f82",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"835a4dfa-fbbb-41ac-b9cd-d80c6e8e8f82"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 DELETE CREW POSITION",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew position was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew position not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/835a4dfa-fbbb-41ac-b9cd-d80c6e8e8f82",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"835a4dfa-fbbb-41ac-b9cd-d80c6e8e8f82"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_path",
+			"value": "http://localhost:8080/api/v1/crew-positions",
+			"type": "string"
+		}
+	]
+}
