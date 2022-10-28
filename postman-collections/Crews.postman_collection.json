@@ -1,0 +1,467 @@
+{
+	"info": {
+		"_postman_id": "4c414519-3cf8-4262-a1df-96d832e16d08",
+		"name": "Crews",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21672673"
+	},
+	"item": [
+		{
+			"name": "201 CREATE CREW",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Creates crew and status code is 201', () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Heart Pirates\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 CREATE CREW (NAME REQUIRED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Crew name is required', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew name is required')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 LIST CREWS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Returns a list of crews with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('array')",
+							"    pm.expect(data.length).to.be.greaterThan(0)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 UPDATE CREW",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Updates crew and status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Whitebeard Pirates 1.1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/bc8a8b7d-a865-4994-972d-7275037ea172",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bc8a8b7d-a865-4994-972d-7275037ea172"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 UPDATE CREW (NAME REQUIRED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Crew name is required', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew name is required')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/bc8a8b7d-a865-4994-972d-7275037ea172",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bc8a8b7d-a865-4994-972d-7275037ea172"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 UPDATE CREW",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Whitebeard Pirates 1.1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/bc8a8b7d-a865-4994-972d-7275037ea1",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bc8a8b7d-a865-4994-972d-7275037ea1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 READ CREW",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Returns a crew', () => {",
+							"    const crew = pm.response.json()",
+							"",
+							"    pm.expect(crew).to.be.an('object')",
+							"    pm.expect(crew).to.have.property('id')",
+							"    pm.expect(crew).to.have.property('name')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/bc8a8b7d-a865-4994-972d-7275037ea172",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bc8a8b7d-a865-4994-972d-7275037ea172"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 READ CREW",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/bc8a8b7d-a865-4994-972d-7275037ea1",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bc8a8b7d-a865-4994-972d-7275037ea1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 DELETE CREW",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Deletes crew and status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/e5849ca2-a2af-45d9-b00b-3b9b859c9e76",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"e5849ca2-a2af-45d9-b00b-3b9b859c9e76"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 DELETE CREW",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/e5849ca2-a2af-45d9-b00b-3b9b859c9e76",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"e5849ca2-a2af-45d9-b00b-3b9b859c9e76"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_path",
+			"value": "http://localhost:8080/api/v1/crews",
+			"type": "string"
+		}
+	]
+}

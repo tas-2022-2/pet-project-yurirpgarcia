@@ -1,0 +1,1003 @@
+{
+	"info": {
+		"_postman_id": "d1d96531-199f-4f13-911a-ea5293eae86b",
+		"name": "Pirates",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21672673"
+	},
+	"item": [
+		{
+			"name": "201 CREATE PIRATE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Creates pirate and status code is 201', () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sanji\",\n    \"aka\": \"Black Leg\",\n    \"crewId\": \"2a7d1875-4d1a-4ddc-9001-0602a5719eaa\",\n    \"crewPositionId\": \"02a4b120-73b1-4bd3-8703-ae4f3d02468d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 CREATE PIRATE (NAME, CREW_ID AND CREW_POSITION_ID  REQUIRED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Pirate name, crewId and crewPositionId are required', () => {",
+							"    const { errors } = pm.response.json()",
+							"",
+							"    pm.expect(errors.length).to.be.eq(3)",
+							"",
+							"    errors.forEach(error => {",
+							"        pm.expect(error.toLowerCase()).to.match(",
+							"            /(pirate name|crew id|crew position id) is required/",
+							"        )",
+							"    })",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 CREATE PIRATE (CREW NOT FOUND)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sanji\",\n    \"aka\": \"Black Leg\",\n    \"crewId\": \"2a7d1875-4d1a-4ddc-9001-0602a5719e\",\n    \"crewPositionId\": \"02a4b120-73b1-4bd3-8703-ae4f3d02468d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 CREATE PIRATE (CREW POSITION NOT FOUND)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew position was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew position not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sanji\",\n    \"aka\": \"Black Leg\",\n    \"crewId\": \"2a7d1875-4d1a-4ddc-9001-0602a5719eaa\",\n    \"crewPositionId\": \"02a4b120-73b1-4bd3-8703-ae4f3d0246\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 LIST PIRATES",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Returns a list of pirates with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('array')",
+							"    pm.expect(data.length).to.be.greaterThan(0)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 UPDATE PIRATE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Updates pirate and status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Edward Newgate 1,1\",\n    \"aka\": \"Whitebeard\",\n    \"crewId\": \"bc8a8b7d-a865-4994-972d-7275037ea172\",\n    \"crewPositionId\": \"de48283d-723d-4890-831e-4482fa73934d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 UPDATE PIRATE (NAME, CREW_ID AND CREW_POSITION_ID  REQUIRED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Pirate name, crewId and crewPositionId are required', () => {",
+							"    const { errors } = pm.response.json()",
+							"",
+							"    pm.expect(errors.length).to.be.eq(3)",
+							"",
+							"    errors.forEach(error => {",
+							"        pm.expect(error.toLowerCase()).to.match(",
+							"            /(pirate name|crew id|crew position id) is required/",
+							"        )",
+							"    })",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 UPDATE PIRATE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('pirate not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Edward Newgate 1,1\",\n    \"aka\": \"Whitebeard\",\n    \"crewId\": \"bc8a8b7d-a865-4994-972d-7275037ea172\",\n    \"crewPositionId\": \"de48283d-723d-4890-831e-4482fa73934d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 UPDATE PIRATE (CREW NOT FOUND)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Edward Newgate 1,1\",\n    \"aka\": \"Whitebeard\",\n    \"crewId\": \"bc8a8b7d-a865-4994-972d-7275037ea1\",\n    \"crewPositionId\": \"de48283d-723d-4890-831e-4482fa73934d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 UPDATE PIRATE (CREW POSITION NOT FOUND)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The crew position was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('crew position not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Edward Newgate 1,1\",\n    \"aka\": \"Whitebeard\",\n    \"crewId\": \"bc8a8b7d-a865-4994-972d-7275037ea172\",\n    \"crewPositionId\": \"de48283d-723d-4890-831e-4482fa7393\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 UPDATE PIRATE SITUATION",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Updates pirate situation and status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isCurrently\": \"DECEASED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 UPDATE PIRATE SITUATION (IS_CURRENTLY REQUIRED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Pirate situation is required', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('pirate situation is required')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 UPDATE PIRATE SITUATION",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The pirate was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('pirate not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isCurrently\": \"DECEASED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "422 UPDATE PIRATE SITUATION (IS_CURRENTLY NOT VALID)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 422', () => {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Pirate situation is invalid', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('is not a valid situation')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isCurrently\": \"DECEASE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "422 UPDATE PIRATE SITUATION (CAN NOT CHANGE SEND SAME STATE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 422', () => {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Pirate is already in state', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('pirate is already')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isCurrently\": \"DECEASED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "422 UPDATE PIRATE SITUATION (CAN NOT CHANGE AFTER DECEASED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 422', () => {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Pirate is already in state', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('pirate is not between us anymore')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isCurrently\": \"FREE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 READ PIRATE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Returns a pirate', () => {",
+							"    const pirate = pm.response.json()",
+							"",
+							"    pm.expect(pirate).to.be.an('object')",
+							"    pm.expect(pirate).to.have.property('id')",
+							"    pm.expect(pirate).to.have.property('name')",
+							"    pm.expect(pirate).to.have.property('crew')",
+							"    pm.expect(pirate).to.have.property('crewPosition')",
+							"    pm.expect(pirate).to.have.property('bounties')",
+							"    pm.expect(pirate.bounties).to.be.an('array')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c45",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 READ PIRATE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The pirate was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('pirate not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/4df4f5df-ffef-4b43-9528-249495432c",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"4df4f5df-ffef-4b43-9528-249495432c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 DELETE PIRATE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Deletes pirate and status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/2937e5f6-51b6-455d-96fb-9ff7b2d57cd6",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"2937e5f6-51b6-455d-96fb-9ff7b2d57cd6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 DELETE PIRATE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The pirate was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('pirate not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/2937e5f6-51b6-455d-96fb-9ff7b2d57cd6",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"2937e5f6-51b6-455d-96fb-9ff7b2d57cd6"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_path",
+			"value": "http://localhost:8080/api/v1/pirates",
+			"type": "string"
+		}
+	]
+}

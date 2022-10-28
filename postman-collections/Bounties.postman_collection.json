@@ -1,0 +1,447 @@
+{
+	"info": {
+		"_postman_id": "fdb6fe1e-4a71-41f5-a49c-73876f3f1fe9",
+		"name": "Bounties",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21672673"
+	},
+	"item": [
+		{
+			"name": "201 CREATE BOUNTY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Creates bounty and status code is 201', () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 320000000,\n    \"reasonDescription\": \"For defeating elite officer of the Donquixote Pirates,\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/pirates/8c2f8a2c-eefc-41bd-97f5-2d5763b036aa/bounties",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"pirates",
+						"8c2f8a2c-eefc-41bd-97f5-2d5763b036aa",
+						"bounties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 CREATE BOUNTY (PIRATE NOT FOUND)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The pirate was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('pirate not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 320000000,\n    \"reasonDescription\": \"For defeating elite officer of the Donquixote Pirates,\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/pirates/8c2f8a2c-eefc-41bd-97f5-2d5763b03/bounties",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"pirates",
+						"8c2f8a2c-eefc-41bd-97f5-2d5763b03",
+						"bounties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 CREATE BOUNTY (VALUE REQUIRED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Bounty value is required', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('bounty value is required')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/pirates/8c2f8a2c-eefc-41bd-97f5-2d5763b03/bounties",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"pirates",
+						"8c2f8a2c-eefc-41bd-97f5-2d5763b03",
+						"bounties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 UPDATE BOUNTY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Updates bounty position and status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 1500000000, \n    \"reasonDescription\": \"Received after going against the four emperors\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/bounties/62fa0512-6a6a-47b5-ae79-0cba13d58eb1",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bounties",
+						"62fa0512-6a6a-47b5-ae79-0cba13d58eb1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 UPDATE BOUNTY (VALUE REQUIRED)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('Bounty value is required', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('bounty value is required')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_path}}/bounties/62fa0512-6a6a-47b5-ae79-0cba13d58eb1",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bounties",
+						"62fa0512-6a6a-47b5-ae79-0cba13d58eb1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 READ BOUNTY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Returns a bounty', () => {",
+							"    const bounty = pm.response.json()",
+							"",
+							"    pm.expect(bounty).to.be.an('object')",
+							"    pm.expect(bounty).to.have.property('id')",
+							"    pm.expect(bounty).to.have.property('value')",
+							"    pm.expect(bounty).to.have.property('pirate')",
+							"",
+							"    const { pirate } = crew",
+							"    pm.expect(pirate).to.not.have.property('bounty')",
+							"    pm.expect(pirate).to.not.have.property('bounties')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/bounties/62fa0512-6a6a-47b5-ae79-0cba13d58eb1",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bounties",
+						"62fa0512-6a6a-47b5-ae79-0cba13d58eb1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 READ BOUNTY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The bounty was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('bounty not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/bounties/62fa0512-6a6a-47b5-ae79-0cba13d58e",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bounties",
+						"62fa0512-6a6a-47b5-ae79-0cba13d58e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200 DELETE BOUNTY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Deletes bounty and status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/bounties/8182ad64-46a6-4c3e-ae6b-12a6efba586b",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bounties",
+						"8182ad64-46a6-4c3e-ae6b-12a6efba586b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 DELETE BOUNTY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returns list of errors with at least one', () => {",
+							"    const data = pm.response.json()",
+							"",
+							"    pm.expect(data).to.be.an('object')",
+							"    pm.expect(data).to.have.property('errors')",
+							"    pm.expect(data.errors).to.be.an('array')",
+							"    pm.expect(data.errors.length).to.be.greaterThan(0)",
+							"});",
+							"",
+							"pm.test('The bounty was not found', () => {",
+							"    const { errors: [error] } = pm.response.json()",
+							"    pm.expect(error.toLowerCase()).to.contain('bounty not found')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_path}}/bounties/8182ad64-46a6-4c3e-ae6b-12a6efba586b",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"bounties",
+						"8182ad64-46a6-4c3e-ae6b-12a6efba586b"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_path",
+			"value": "http://localhost:8080/api/v1",
+			"type": "string"
+		}
+	]
+}

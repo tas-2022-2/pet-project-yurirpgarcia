@@ -1,0 +1,585 @@
+swagger: "2.0"
+info:
+  title: API One Piece World
+  version: 1.0.0
+  contact:
+    name: Yuri Garcia
+    email: yurirpgarcia@gmail.com
+  license:
+    name: Proprietário
+host: onepieceworld.com
+basePath: /api/v1
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /crews:
+    get:
+      tags:
+        - Crews
+      summary: Returns a list of crews.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK, with a list of crews.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Crew"
+
+    post:
+      tags:
+        - Crews
+      summary: Creates a new crew.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: crew
+          schema:
+            $ref: "#/definitions/Crew"
+      responses:
+        201:
+          description: CREATED, the crew was created.
+        400:
+          description: BAD REQUEST, missing properties.
+          schema:
+            $ref: "#/definitions/Errors"
+
+  /crews/{crewId}:
+    parameters:
+      - in: path
+        name: crewId
+        type: string
+        required: true
+        description: Crew uuid.
+
+    get:
+      tags:
+        - Crews
+      summary: Returns a crew.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK, with a crew.
+          schema:
+            $ref: "#/definitions/CrewWithPirates"
+        404:
+          description: NOT FOUND, the crew was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+    put:
+      tags:
+        - Crews
+      summary: Updates an existing crew.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: crew
+          schema:
+            $ref: "#/definitions/Crew"
+      responses:
+        200:
+          description: OK, the crew was updated.
+        400:
+          description: BAD REQUEST, missing properties.
+          schema:
+            $ref: "#/definitions/Errors"
+        404:
+          description: NOT FOUND, the crew was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+    delete:
+      tags:
+        - Crews
+      summary: Deletes an existing crew.
+      responses:
+        200:
+          description: OK, the crew was deleted.
+        404:
+          description: NOT FOUND, the crew was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+  /crew-positions:
+    get:
+      tags:
+        - Crew Positions
+      summary: Returns a list of crew positions.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK, with a list of crew positions.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/CrewPosition"
+
+    post:
+      tags:
+        - Crew Positions
+      summary: Creates a new crew position.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: crewPosition
+          schema:
+            $ref: "#/definitions/CrewPosition"
+      responses:
+        201:
+          description: CREATED, the crew position was created.
+        400:
+          description: BAD REQUEST, missing properties.
+          schema:
+            $ref: "#/definitions/Errors"
+
+  /crew-positions/{crewPositionId}:
+    parameters:
+      - in: path
+        name: crewPositionId
+        type: string
+        required: true
+        description: Crew position uuid.
+
+    get:
+      tags:
+        - Crew Positions
+      summary: Returns a crew position.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK, with a crew position.
+          schema:
+            $ref: "#/definitions/CrewPosition"
+        404:
+          description: NOT FOUND, the crew position was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+    put:
+      tags:
+        - Crew Positions
+      summary: Updates an existing crew position.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: crewPosition
+          schema:
+            $ref: "#/definitions/Crew"
+      responses:
+        200:
+          description: OK, the crew position was updated.
+        400:
+          description: BAD REQUEST, missing properties.
+          schema:
+            $ref: "#/definitions/Errors"
+        404:
+          description: NOT FOUND, the crew was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+    delete:
+      tags:
+        - Crew Positions
+      summary: Deletes an existing crew position.
+      responses:
+        200:
+          description: OK, the crew position was deleted.
+        404:
+          description: NOT FOUND, the crew position was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+  /pirates:
+    get:
+      tags:
+        - Pirates
+      summary: Returns a list of pirates.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK, with a list of pirates
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/PirateWithCrewPositionAndCrew"
+    post:
+      tags:
+        - Pirates
+      summary: Creates a new pirate.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: pirate
+          schema:
+            $ref: "#/definitions/PirateWithCrewPositionAndCrewId"
+      responses:
+        201:
+          description: CREATED, the pirate was created.
+        400:
+          description: BAD REQUEST, missing properties.
+          schema:
+            $ref: "#/definitions/Errors"
+
+  /pirates/{pirateId}:
+    parameters:
+      - in: path
+        name: pirateId
+        type: string
+        required: true
+        description: Pirate uuid.
+
+    get:
+      tags:
+        - Pirates
+      summary: Returns a pirate.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK, with a pirate.
+          schema:
+            $ref: "#/definitions/PirateWithCrewCrewPositionAndBounty"
+        404:
+          description: NOT FOUND, the pirate was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+    put:
+      tags:
+        - Pirates
+      summary: Updates an existing pirate.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: pirate
+          schema:
+            $ref: "#/definitions/PirateWithCrewPositionAndCrewId"
+      responses:
+        200:
+          description: OK, the pirate was updated.
+        400:
+          description: BAD REQUEST, missing properties.
+          schema:
+            $ref: "#/definitions/Errors"
+        404:
+          description: NOT FOUND, the pirate was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+    delete:
+      tags:
+        - Pirates
+      summary: Deletes an existing pirate.
+      responses:
+        200:
+          description: OK, the pirate was deleted.
+        404:
+          description: NOT FOUND, the pirate was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+    patch:
+      tags:
+        - Pirates
+      summary: Updates existing pirate state.
+      parameters:
+        - in: body
+          name: pirate
+          schema:
+            type: object
+            properties:
+              isCurrently:
+                $ref: "#/definitions/PirateState"
+            required:
+              - isCurrently
+      responses:
+        200:
+          description: OK, the pirate state was update.
+        400:
+          description: BAD REQUEST, missing properties.
+          schema:
+            $ref: "#/definitions/Errors"
+        404:
+          description: NOT FOUND, the pirate was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+        422:
+          description: UNPROCESSABLE ENTITY, invalid properties.
+          schema:
+            $ref: "#/definitions/Errors"
+
+  /pirates/{pirateId}/bounties:
+    parameters:
+      - in: path
+        name: pirateId
+        type: string
+        required: true
+        description: Pirate uuid.
+
+    post:
+      tags:
+        - Bounties
+      summary: Creates a new bounty.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: bounty
+          schema:
+            $ref: "#/definitions/BaseBounty"
+      responses:
+        201:
+          description: CREATED, the bounty was created.
+        400:
+          description: BAD REQUEST, missing properties.
+          schema:
+            $ref: "#/definitions/Errors"
+        404:
+          description: NOT FOUND, the pirate was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+  /bounties/{bountyId}:
+    parameters:
+      - in: path
+        name: bountyId
+        type: string
+        required: true
+        description: Bounty uuid.
+
+    get:
+      tags:
+        - Bounties
+      summary: Returns a bounty.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK, with a bounty.
+          schema:
+            $ref: "#/definitions/BountyWithPirate"
+        404:
+          description: NOT FOUND, the bounty was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+    put:
+      tags:
+        - Bounties
+      summary: Updates an existing bounty.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: bounty
+          schema:
+            $ref: "#/definitions/BaseBounty"
+      responses:
+        200:
+          description: OK, the bounty was updated.
+        400:
+          description: BAD REQUEST, missing properties.
+          schema:
+            $ref: "#/definitions/Errors"
+        404:
+          description: NOT FOUND, the bounty was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+    delete:
+      tags:
+        - Bounties
+      summary: Deletes an existing bounty.
+      responses:
+        200:
+          description: OK, the bounty was deleted.
+        404:
+          description: NOT FOUND, the bounty was not found.
+          schema:
+            $ref: "#/definitions/Errors"
+
+definitions:
+  Errors:
+    type: array
+    items:
+      type: string
+      example: Error message
+    description: List of errors
+
+  Crew:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Crew uuid.
+        example: 8013d8b8-52b7-4fbd-bbdd-3ea830607443
+        readOnly: true
+      name:
+        type: string
+        description: Crew name
+        example: Straw Hat Pirates
+    required:
+      - name
+
+  CrewPosition:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Crew positions uuid.
+        example: 33c675c1-51bb-44e5-82ac-62f92c64bcbb
+        readOnly: true
+      name:
+        type: string
+        description: Crew positions name.
+        example: Captain
+    required:
+      - name
+
+  PirateState:
+    type: string
+    enum:
+      - FREE
+      - IN_JAIL
+      - DECEASED
+
+  BasePirate:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Pirate uuid.
+        example: c71b75bc-fab8-4b89-9cbd-7f94cec69e97
+        readOnly: true
+      name:
+        type: string
+        description: Pirate name.
+        example: Monkey D. Luffy
+      aka:
+        type: string
+        description: Pirate nickname.
+        example: Straw Hat
+      isCurrently:
+        description: Pirate current state.
+        allOf:
+          - $ref: "#/definitions/PirateState"
+        example: FREE
+    required:
+      - name
+      - isCurrently
+
+  PirateWithCrewPositionAndCrewId:
+    allOf:
+      - $ref: "#/definitions/BasePirate"
+      - type: object
+      - properties:
+          crewId:
+            type: string
+            description: Pirate crew uuid.
+            example: c0edb129-9024-46cc-849a-5e30fd49c4c7
+          crewPositionId:
+            type: string
+            description: Pirate crew position uuid.
+            example: de33bad7-67df-4ee8-9af4-8aef5e19b493
+      - required:
+          - crewId
+          - crewPositionId
+
+  PirateWithCrewPosition:
+    allOf:
+      - $ref: "#/definitions/BasePirate"
+      - type: object
+      - properties:
+          crewPosition:
+            allOf:
+              - $ref: "#/definitions/CrewPosition"
+              - description: Pirate crew position.
+      - required:
+          - crewPosition
+
+  CrewWithPirates:
+    allOf:
+      - $ref: "#/definitions/Crew"
+      - type: object
+      - properties:
+          pirates:
+            type: array
+            items:
+              $ref: "#/definitions/PirateWithCrewPosition"
+            description: Crew pirates.
+      - required:
+          - pirates
+
+  PirateWithCrewPositionAndCrew:
+    allOf:
+      - $ref: "#/definitions/BasePirate"
+      - type: object
+      - properties:
+          crew:
+            allOf:
+              - $ref: "#/definitions/Crew"
+              - description: Pirate crew.
+      - required:
+          - crew
+
+  BaseBounty:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Bounty uuid.
+        example: c71b75bc-fab8-4b89-9cbd-7f94cec69e97
+        readOnly: true
+      value:
+        type: number
+        description: Bounty value.
+        example: 1500000000
+      reasonDescription:
+        type: string
+        description: Description of why the pirate was given this bounty.
+        example: Received after going against the four emperors.
+    required:
+      - value
+
+  PirateWithCrewCrewPositionAndBounty:
+    allOf:
+      - $ref: "#/definitions/PirateWithCrewPositionAndCrew"
+      - type: object
+      - properties:
+          bounties:
+            type: array
+            items:
+              $ref: "#/definitions/BaseBounty"
+            description: Pirate bounties.
+      - required:
+          - bounties
+
+  BountyWithPirate:
+    allOf:
+      - $ref: "#/definitions/BaseBounty"
+      - type: object
+      - properties:
+          pirate:
+            allOf:
+              - $ref: "#/definitions/PirateWithCrewPositionAndCrew"
+              - description: Bounty pirate.
+      - required:
+          - pirate
