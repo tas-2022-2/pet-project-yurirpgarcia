@@ -12,6 +12,10 @@ public class Belly implements Comparable<Belly> {
     this.value = value;
   }
 
+  public Belly(int value) {
+    this.value = new BigDecimal(value);
+  }
+
   @Override
   public String toString() {
     return String.format("฿ %s", this.value.toPlainString());
