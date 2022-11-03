@@ -68,7 +68,7 @@ public class BountyService {
         bounty.getReasonDescription().length() > 0 &&
         bounty.getReasonDescription().length() < 10) {
 
-      throw new IllegalArgumentException("If bounty reason was informed then it must have at least 10 characters long");
+      throw new IllegalArgumentException("If bounty reason was informed then it must be at least 10 characters long");
     }
   }
 
