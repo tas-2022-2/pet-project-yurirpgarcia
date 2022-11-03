@@ -61,7 +61,7 @@ public class BountyService {
     var zeroBelly = new Belly(0);
 
     if (bounty.getValue().compareTo(zeroBelly) != 1) {
-      throw new IllegalArgumentException("Bounty value has to be greater than 0");
+      throw new IllegalArgumentException("Bounty value must be greater than 0");
     }
 
     if (bounty.getReasonDescription() != null &&
